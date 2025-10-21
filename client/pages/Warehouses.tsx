@@ -170,7 +170,9 @@ export default function Warehouses() {
         page = 0;
         let hasMoreLockers = true;
         while (hasMoreLockers) {
-          const lockersResponse = await fetch(`/api/lockers?size=500&page=${page}`);
+          const lockersResponse = await fetch(
+            `/api/lockers?size=500&page=${page}`,
+          );
           if (lockersResponse.ok) {
             const lockersData = await lockersResponse.json();
             console.log(`Lockers response (page ${page}):`, lockersData);

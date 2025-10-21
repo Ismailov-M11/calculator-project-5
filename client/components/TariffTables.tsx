@@ -485,7 +485,6 @@ export function TariffTables() {
     }
   };
 
-
   const getNotesText = () => {
     switch (language) {
       case "ru":

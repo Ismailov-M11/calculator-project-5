@@ -752,10 +752,11 @@ const CITIES_DATA: RegionCity[] = [
   {
     shipox_id: 263947333,
     region_id: "namangan-viloyati",
-    names: { 
-      uz: "Chust tumani", 
-      ru: "Чустcкий район", 
-      en: "Chust district" },
+    names: {
+      uz: "Chust tumani",
+      ru: "Чустcкий район",
+      en: "Chust district",
+    },
   },
   {
     shipox_id: 263947336,
@@ -1869,8 +1870,7 @@ export async function calculateTariff(req: Request, res: Response) {
     }
 
     // Build URL with query parameters for the new API
-    const baseUrl =
-      "https://gateway.fargo.uz/api/v2/admin/packages/prices";
+    const baseUrl = "https://gateway.fargo.uz/api/v2/admin/packages/prices";
     const params = new URLSearchParams({
       size: "50",
       "dimensions.width": "32",
@@ -2042,8 +2042,7 @@ export async function getWarehouses(req: Request, res: Response) {
     const size = req.query.size ? parseInt(req.query.size as string) : 500;
     const page = req.query.page ? parseInt(req.query.page as string) : 0;
 
-    const url =
-      `https://gateway.fargo.uz/api/v1/admin/warehouses?size=${size}&multi_marketplace=false&page=${page}&status=active&type=POST_OFFICE&show_all=true`;
+    const url = `https://gateway.fargo.uz/api/v1/admin/warehouses?size=${size}&multi_marketplace=false&page=${page}&status=active&type=POST_OFFICE&show_all=true`;
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
@@ -2103,8 +2102,7 @@ export async function getLockers(req: Request, res: Response) {
     const size = req.query.size ? parseInt(req.query.size as string) : 500;
     const page = req.query.page ? parseInt(req.query.page as string) : 0;
 
-    const url =
-      `https://gateway.fargo.uz/api/v1/admin/warehouses?size=${size}&multi_marketplace=false&page=${page}&status=active&type=LOCKER&show_all=true`;
+    const url = `https://gateway.fargo.uz/api/v1/admin/warehouses?size=${size}&multi_marketplace=false&page=${page}&status=active&type=LOCKER&show_all=true`;
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
