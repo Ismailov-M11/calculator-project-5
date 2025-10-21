@@ -152,9 +152,8 @@ export default function Warehouses() {
               warehouses.length,
             );
 
-            // Check if there are more pages
-            const isLast = warehousesData.last ?? warehouses.length < 500;
-            hasMoreWarehouses = !isLast;
+            // Check if there are more pages - continue if we got a full page of results
+            hasMoreWarehouses = warehouses.length === 500;
             page++;
           } else {
             console.error(
