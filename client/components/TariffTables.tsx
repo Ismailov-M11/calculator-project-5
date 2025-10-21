@@ -422,7 +422,7 @@ export function TariffTables() {
           title: "Надбавка за стоимость",
           cost: "Стоимость: 1% (без учета НДС 12%)",
           description:
-            "Дополнительный платеж, уплачиваемый Заказчиком ��сполнителю при оглашении стоимости почтового отправления. Расчет размера дополнительного платежа производится по формуле - дополнительный платеж от стоимости (суммы) = 1% x объявленная стоимость (сумма).",
+            "Дополнительный платеж, уплачиваемый Заказчиком Исполнителю при оглашении стоимости почтового отправления. Расчет размера дополнительного платежа производится по формуле - дополнительный платеж от стоимости (суммы) = 1% x объявленная стоимость (сумма).",
         };
       case "uz":
         return {
@@ -812,20 +812,6 @@ export function TariffTables() {
         <p className="font-bold text-gray-800">
           {volumetricWeightText.formula}
         </p>
-      </div>
-
-      {/* Delivery Rates Section */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <p className="text-gray-800 font-medium mb-3">
-          {deliveryRatesText.title}
-        </p>
-        <ul className="space-y-1">
-          {deliveryRatesText.rates.map((rate, index) => (
-            <li key={index} className="text-gray-600 text-sm">
-              {rate}
-            </li>
-          ))}
-        </ul>
       </div>
 
       {/* Notes Section */}
