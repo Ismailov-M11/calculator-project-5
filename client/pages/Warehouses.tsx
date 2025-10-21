@@ -134,33 +134,58 @@ export default function Warehouses() {
       try {
         const allItems: Warehouse[] = [];
 
-        // Fetch warehouses
+        // Fetch warehouses with pagination
         console.log("Fetching warehouses...");
-        const warehousesResponse = await fetch("/api/warehouses");
-        if (warehousesResponse.ok) {
-          const warehousesData = await warehousesResponse.json();
-          console.log("Warehouses response:", warehousesData);
-          const warehouses = warehousesData.data || [];
-          allItems.push(...warehouses);
-          console.log("Added warehouses:", warehouses.length);
-        } else {
-          console.error(
-            "Failed to fetch warehouses:",
-            warehousesResponse.status,
+        let page = 0;
+        let hasMoreWarehouses = true;
+        while (hasMoreWarehouses) {
+          const warehousesResponse = await fetch(
+            `/api/warehouses?size=500&page=${page}`,
           );
+          if (warehousesResponse.ok) {
+            const warehousesData = await warehousesResponse.json();
+            console.log(`Warehouses response (page ${page}):`, warehousesData);
+            const warehouses = warehousesData.data || [];
+            allItems.push(...warehouses);
+            console.log(
+              `Added warehouses from page ${page}:`,
+              warehouses.length,
+            );
+
+            // Check if there are more pages
+            const isLast = warehousesData.last ?? warehouses.length < 500;
+            hasMoreWarehouses = !isLast;
+            page++;
+          } else {
+            console.error(
+              "Failed to fetch warehouses:",
+              warehousesResponse.status,
+            );
+            hasMoreWarehouses = false;
+          }
         }
 
-        // Fetch lockers
+        // Fetch lockers with pagination
         console.log("Fetching lockers...");
-        const lockersResponse = await fetch("/api/lockers");
-        if (lockersResponse.ok) {
-          const lockersData = await lockersResponse.json();
-          console.log("Lockers response:", lockersData);
-          const lockers = lockersData.data || [];
-          allItems.push(...lockers);
-          console.log("Added lockers:", lockers.length);
-        } else {
-          console.error("Failed to fetch lockers:", lockersResponse.status);
+        page = 0;
+        let hasMoreLockers = true;
+        while (hasMoreLockers) {
+          const lockersResponse = await fetch(`/api/lockers?size=500&page=${page}`);
+          if (lockersResponse.ok) {
+            const lockersData = await lockersResponse.json();
+            console.log(`Lockers response (page ${page}):`, lockersData);
+            const lockers = lockersData.data || [];
+            allItems.push(...lockers);
+            console.log(`Added lockers from page ${page}:`, lockers.length);
+
+            // Check if there are more pages
+            const isLast = lockersData.last ?? lockers.length < 500;
+            hasMoreLockers = !isLast;
+            page++;
+          } else {
+            console.error("Failed to fetch lockers:", lockersResponse.status);
+            hasMoreLockers = false;
+          }
         }
 
         console.log("Total items:", allItems.length);
