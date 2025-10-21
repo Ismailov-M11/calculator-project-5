@@ -485,49 +485,6 @@ export function TariffTables() {
     }
   };
 
-  const getDeliveryRatesText = () => {
-    switch (language) {
-      case "ru":
-        return {
-          title:
-            "Во всех действующих тарифах используется следующая логика подсчета стоимости доставки за каждый килограмм:",
-          rates: [
-            "от 1 кг до 99 кг – каждый килограмм по 5000 сум",
-            "от 100 кг до 499 кг – каждый килограмм по 4000 сум",
-            "от 500 кг до 1500 кг – каждый килограмм по 3000 сум",
-          ],
-        };
-      case "uz":
-        return {
-          title: "Har kilogramm uchun yetkazib berish narxlari:",
-          rates: [
-            "1 kg dan 99 kg gacha — har kg uchun 5 000 so'm",
-            "100 kg dan 499 kg gacha — har kg uchun 4 000 so'm",
-            "500 kg dan 1500 kg gacha — har kg uchun 3 000 so'm",
-          ],
-        };
-      case "en":
-        return {
-          title: "Delivery Rates Per Kilogram:",
-          rates: [
-            "from 1 kg to 99 kg — 5,000 UZS per kg",
-            "from 100 kg to 499 kg — 4,000 UZS per kg",
-            "from 500 kg to 1500 kg — 3,000 UZS per kg",
-          ],
-        };
-      default:
-        return {
-          title:
-            "Во всех действующих тарифах используется следующая логика подсчёта стоимости доставки за каждый килограмм:",
-          rates: [
-            "от 1 кг до 99 кг – каждый килограмм по 5000 сум",
-            "от 100 кг до 499 кг – каждый килограмм по 4000 сум",
-            "от 500 кг до 1500 кг – каждый килограмм по 3000 сум",
-          ],
-        };
-    }
-  };
-
   const getNotesText = () => {
     switch (language) {
       case "ru":
@@ -675,7 +632,6 @@ export function TariffTables() {
   const codServiceText = getCodServiceText();
   const declaredValueText = getDeclaredValueText();
   const volumetricWeightText = getVolumetricWeightText();
-  const deliveryRatesText = getDeliveryRatesText();
   const notesText = getNotesText();
 
   return (
@@ -855,20 +811,6 @@ export function TariffTables() {
         <p className="font-bold text-gray-800">
           {volumetricWeightText.formula}
         </p>
-      </div>
-
-      {/* Delivery Rates Section */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <p className="text-gray-800 font-medium mb-3">
-          {deliveryRatesText.title}
-        </p>
-        <ul className="space-y-1">
-          {deliveryRatesText.rates.map((rate, index) => (
-            <li key={index} className="text-gray-600 text-sm">
-              {rate}
-            </li>
-          ))}
-        </ul>
       </div>
 
       {/* Notes Section */}
