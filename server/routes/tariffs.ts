@@ -245,7 +245,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "andijon-viloyati",
     names: {
       uz: "Andijon tumani",
-      ru: "Андижанский район",
+      ru: "Андиж��нский район",
       en: "Andijan district",
     },
   },
@@ -838,7 +838,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "navoiy-viloyati",
     names: {
       uz: "Karmana tumani",
-      ru: "Карманинский район",
+      ru: "Карманинский ра��он",
       en: "Karmana district",
     },
   },
@@ -943,7 +943,7 @@ const CITIES_DATA: RegionCity[] = [
   {
     shipox_id: 263947220,
     region_id: "qashqadaryo-viloyati",
-    names: { uz: "Kasbi tumani", ru: "Касбийский район", en: "Kasby district" },
+    names: { uz: "Kasbi tumani", ru: "Касбийский ра��он", en: "Kasby district" },
   },
   {
     shipox_id: 263947225,
@@ -1153,7 +1153,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "qoraqalpogiston",
     names: {
       uz: "Shumanay tumani",
-      ru: "Шуманайский район",
+      ru: "Шуманайский рай��н",
       en: "Shumanay district",
     },
   },
@@ -1486,7 +1486,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "surxondaryo-viloyati",
     names: {
       uz: "Qiziriq tumani",
-      ru: "Кизирикский район",
+      ru: "Кизирикский р��йон",
       en: "Kizirik district",
     },
   },
@@ -2039,8 +2039,11 @@ export async function getWarehouses(req: Request, res: Response) {
   try {
     console.log("Fetching warehouses from FARGO API...");
 
+    const size = req.query.size ? parseInt(req.query.size as string) : 500;
+    const page = req.query.page ? parseInt(req.query.page as string) : 0;
+
     const url =
-      "https://gateway.fargo.uz/api/v1/admin/warehouses?size=100&multi_marketplace=false&page=0&status=active&type=POST_OFFICE&show_all=true";
+      `https://gateway.fargo.uz/api/v1/admin/warehouses?size=${size}&multi_marketplace=false&page=${page}&status=active&type=POST_OFFICE&show_all=true`;
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
