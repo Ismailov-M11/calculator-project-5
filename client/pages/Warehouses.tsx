@@ -179,9 +179,8 @@ export default function Warehouses() {
             allItems.push(...lockers);
             console.log(`Added lockers from page ${page}:`, lockers.length);
 
-            // Check if there are more pages
-            const isLast = lockersData.last ?? lockers.length < 500;
-            hasMoreLockers = !isLast;
+            // Check if there are more pages - continue if we got a full page of results
+            hasMoreLockers = lockers.length === 500;
             page++;
           } else {
             console.error("Failed to fetch lockers:", lockersResponse.status);
