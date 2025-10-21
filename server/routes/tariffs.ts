@@ -195,7 +195,7 @@ const REGIONS_DATA: Region[] = [
     id: "sirdaryo-viloyati",
     names: {
       uz: "Sirdaryo Viloyati",
-      ru: "Сырда��ьинская область",
+      ru: "Сырдарьинская область",
       en: "Syrdarya Region",
     },
   },
