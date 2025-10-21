@@ -195,7 +195,7 @@ const REGIONS_DATA: Region[] = [
     id: "sirdaryo-viloyati",
     names: {
       uz: "Sirdaryo Viloyati",
-      ru: "Сырдарьинская область",
+      ru: "Сырда��ьинская область",
       en: "Syrdarya Region",
     },
   },
@@ -245,7 +245,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "andijon-viloyati",
     names: {
       uz: "Andijon tumani",
-      ru: "Андиж��нский район",
+      ru: "Андижанский район",
       en: "Andijan district",
     },
   },
@@ -838,7 +838,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "navoiy-viloyati",
     names: {
       uz: "Karmana tumani",
-      ru: "Карманинский ра��он",
+      ru: "Карманинский район",
       en: "Karmana district",
     },
   },
@@ -943,7 +943,7 @@ const CITIES_DATA: RegionCity[] = [
   {
     shipox_id: 263947220,
     region_id: "qashqadaryo-viloyati",
-    names: { uz: "Kasbi tumani", ru: "Касбийский ра��он", en: "Kasby district" },
+    names: { uz: "Kasbi tumani", ru: "Касбийский район", en: "Kasby district" },
   },
   {
     shipox_id: 263947225,
@@ -1153,7 +1153,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "qoraqalpogiston",
     names: {
       uz: "Shumanay tumani",
-      ru: "Шуманайский рай��н",
+      ru: "Шуманайский район",
       en: "Shumanay district",
     },
   },
@@ -1486,7 +1486,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "surxondaryo-viloyati",
     names: {
       uz: "Qiziriq tumani",
-      ru: "Кизирикский р��йон",
+      ru: "Кизирикский район",
       en: "Kizirik district",
     },
   },
@@ -2100,8 +2100,11 @@ export async function getLockers(req: Request, res: Response) {
   try {
     console.log("Fetching lockers from FARGO API...");
 
+    const size = req.query.size ? parseInt(req.query.size as string) : 500;
+    const page = req.query.page ? parseInt(req.query.page as string) : 0;
+
     const url =
-      "https://gateway.fargo.uz/api/v1/admin/warehouses?size=1000&multi_marketplace=false&page=0&status=active&type=LOCKER&show_all=true";
+      `https://gateway.fargo.uz/api/v1/admin/warehouses?size=${size}&multi_marketplace=false&page=${page}&status=active&type=LOCKER&show_all=true`;
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
