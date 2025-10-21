@@ -216,9 +216,9 @@ export default function Warehouses() {
       const searchLower = search.toLowerCase();
       items = items.filter(
         (item) =>
-          item.city.toLowerCase().includes(searchLower) ||
-          item.name.toLowerCase().includes(searchLower) ||
-          item.address?.toLowerCase().includes(searchLower),
+          (item.city && item.city.toLowerCase().includes(searchLower)) ||
+          (item.name && item.name.toLowerCase().includes(searchLower)) ||
+          (item.address && item.address.toLowerCase().includes(searchLower)),
       );
     }
 
