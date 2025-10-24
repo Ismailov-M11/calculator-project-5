@@ -72,7 +72,7 @@ export function useWarehouseCheck() {
   const hasWarehouse = (cityName: string | null): boolean => {
     if (!cityName || warehouses.length === 0) {
       console.log(
-        `❌ No warehouse check possible for "${cityName}" - ${warehouses.length} warehouses available`,
+        `�� No warehouse check possible for "${cityName}" - ${warehouses.length} warehouses available`,
       );
       return false;
     }
@@ -86,7 +86,7 @@ export function useWarehouseCheck() {
     const trimmedCityName = cityName.trim();
 
     // Get all available warehouse cities for debugging
-    const warehouseCities = warehouses.map((w) => w.city);
+    const warehouseCities = warehouses.map((w) => w.city).filter((c) => c);
     console.log("📍 Available warehouse cities:", warehouseCities);
 
     // Enhanced debugging
