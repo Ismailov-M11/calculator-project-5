@@ -14,49 +14,74 @@ export function useWarehouseCheck() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Fetch warehouses
-        const warehousesResponse = await fetch("/api/warehouses");
-        if (warehousesResponse.ok) {
-          const warehousesData = await warehousesResponse.json();
-          const warehousesList =
-            warehousesData.data?.list || warehousesData.data || [];
-          console.log("🏭 WAREHOUSE DATA DEBUG:");
-          console.log("Raw warehouse data:", warehousesData);
-          console.log(
-            "Warehouse cities:",
-            warehousesList.map((w) => ({
-              id: w.id,
-              name: w.name,
-              city: w.city,
-            })),
+        const allWarehouses: Warehouse[] = [];
+        const allLockers: Warehouse[] = [];
+
+        // Fetch warehouses with pagination
+        let page = 0;
+        let hasMoreWarehouses = true;
+        while (hasMoreWarehouses) {
+          const warehousesResponse = await fetch(
+            `/api/warehouses?size=500&page=${page}`,
           );
-          console.log(
-            "Looking for Andijan in:",
-            warehousesList.map((w) => w.city),
-          );
-          setWarehouses(warehousesList);
-        } else {
-          console.error(
-            "Failed to fetch warehouses:",
-            warehousesResponse.status,
-          );
+          if (warehousesResponse.ok) {
+            const warehousesData = await warehousesResponse.json();
+            const warehousesList =
+              warehousesData.data?.list || warehousesData.data || [];
+            allWarehouses.push(...warehousesList);
+            console.log(
+              `🏭 Fetched ${warehousesList.length} warehouses from page ${page}`,
+            );
+            hasMoreWarehouses = warehousesList.length === 500;
+            page++;
+          } else {
+            console.error(
+              "Failed to fetch warehouses:",
+              warehousesResponse.status,
+            );
+            hasMoreWarehouses = false;
+          }
         }
 
-        // Fetch lockers
-        const lockersResponse = await fetch("/api/lockers");
-        if (lockersResponse.ok) {
-          const lockersData = await lockersResponse.json();
-          const lockersList = lockersData.data?.list || lockersData.data || [];
-          console.log("🏪 LOCKER DATA DEBUG:");
-          console.log("Raw locker data:", lockersData);
-          console.log(
-            "Locker cities:",
-            lockersList.map((l) => ({ id: l.id, name: l.name, city: l.city })),
-          );
-          setLockers(lockersList);
-        } else {
-          console.error("Failed to fetch lockers:", lockersResponse.status);
+        console.log("🏭 WAREHOUSE DATA DEBUG:");
+        console.log("Total warehouses loaded:", allWarehouses.length);
+        console.log(
+          "Warehouse cities:",
+          allWarehouses.map((w) => ({
+            id: w.id,
+            name: w.name,
+            city: w.city,
+          })),
+        );
+        setWarehouses(allWarehouses);
+
+        // Fetch lockers with pagination
+        page = 0;
+        let hasMoreLockers = true;
+        while (hasMoreLockers) {
+          const lockersResponse = await fetch(`/api/lockers?size=500&page=${page}`);
+          if (lockersResponse.ok) {
+            const lockersData = await lockersResponse.json();
+            const lockersList = lockersData.data?.list || lockersData.data || [];
+            allLockers.push(...lockersList);
+            console.log(
+              `🏪 Fetched ${lockersList.length} lockers from page ${page}`,
+            );
+            hasMoreLockers = lockersList.length === 500;
+            page++;
+          } else {
+            console.error("Failed to fetch lockers:", lockersResponse.status);
+            hasMoreLockers = false;
+          }
         }
+
+        console.log("🏪 LOCKER DATA DEBUG:");
+        console.log("Total lockers loaded:", allLockers.length);
+        console.log(
+          "Locker cities:",
+          allLockers.map((l) => ({ id: l.id, name: l.name, city: l.city })),
+        );
+        setLockers(allLockers);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load warehouse and locker data");
