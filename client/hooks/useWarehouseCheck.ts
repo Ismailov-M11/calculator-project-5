@@ -59,10 +59,13 @@ export function useWarehouseCheck() {
         page = 0;
         let hasMoreLockers = true;
         while (hasMoreLockers) {
-          const lockersResponse = await fetch(`/api/lockers?size=500&page=${page}`);
+          const lockersResponse = await fetch(
+            `/api/lockers?size=500&page=${page}`,
+          );
           if (lockersResponse.ok) {
             const lockersData = await lockersResponse.json();
-            const lockersList = lockersData.data?.list || lockersData.data || [];
+            const lockersList =
+              lockersData.data?.list || lockersData.data || [];
             allLockers.push(...lockersList);
             console.log(
               `🏪 Fetched ${lockersList.length} lockers from page ${page}`,
@@ -151,7 +154,8 @@ export function useWarehouseCheck() {
 
     // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
     const exactMatch = warehouses.find(
-      (warehouse) => warehouse.city && warehouse.city.trim() === trimmedCityName,
+      (warehouse) =>
+        warehouse.city && warehouse.city.trim() === trimmedCityName,
     );
 
     if (exactMatch) {
