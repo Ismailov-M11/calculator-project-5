@@ -98,6 +98,10 @@ export function useWarehouseCheck() {
 
     // Check all warehouses for potential matches
     warehouses.forEach((w, i) => {
+      if (!w.city) {
+        console.log(`  Warehouse ${i}: No city property`);
+        return;
+      }
       const trimmedWarehouseCity = w.city.trim();
       const strictMatch = trimmedWarehouseCity === trimmedCityName;
       console.log(
