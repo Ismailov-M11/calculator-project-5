@@ -72,7 +72,7 @@ export function useWarehouseCheck() {
   const hasWarehouse = (cityName: string | null): boolean => {
     if (!cityName || warehouses.length === 0) {
       console.log(
-        `�� No warehouse check possible for "${cityName}" - ${warehouses.length} warehouses available`,
+        `❌ No warehouse check possible for "${cityName}" - ${warehouses.length} warehouses available`,
       );
       return false;
     }
@@ -158,7 +158,7 @@ export function useWarehouseCheck() {
     console.log(`🔍 STRICT locker check for city: "${cityName}"`);
 
     // Get all available locker cities for debugging
-    const lockerCities = lockers.map((l) => l.city);
+    const lockerCities = lockers.map((l) => l.city).filter((c) => c);
     console.log("📍 Available locker cities:", lockerCities);
 
     // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
