@@ -164,7 +164,7 @@ export function useWarehouseCheck() {
     // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
     const trimmedCityName = cityName.trim();
     const exactMatch = lockers.find(
-      (locker) => locker.city.trim() === trimmedCityName,
+      (locker) => locker.city && locker.city.trim() === trimmedCityName,
     );
 
     if (exactMatch) {
